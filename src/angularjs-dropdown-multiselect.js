@@ -236,15 +236,18 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 $scope.deselectAll = function (sendEvent) {
                     sendEvent = sendEvent || true;
 
-                    if (sendEvent) {
-                        $scope.externalEvents.onDeselectAll();
-                    }
-
                     if ($scope.singleSelection) {
                         clearObject($scope.selectedModel);
                     } else {
                         $scope.selectedModel.splice(0, $scope.selectedModel.length);
                     }
+
+                    if (sendEvent) {
+                        $scope.externalEvents.onDeselectAll();
+                    }
+
+
+                    if ($scope.settings.closeOnDeselect) $scope.open = false;
                 };
 
                 $scope.setSelectedItem = function (id, dontRemove) {
